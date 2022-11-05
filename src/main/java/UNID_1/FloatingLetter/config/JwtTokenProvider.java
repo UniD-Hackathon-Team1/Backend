@@ -1,6 +1,7 @@
 package UNID_1.FloatingLetter.config;
 
 import UNID_1.FloatingLetter.domain.User;
+import UNID_1.FloatingLetter.service.UserDetailsServiceImpl;
 import UNID_1.FloatingLetter.service.UserService;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
-    private final UserDetailsService userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
 
     @Value("${springboot.jwt.secret}")
     private String secretKey = "secretKey";
@@ -52,7 +53,7 @@ public class JwtTokenProvider {
     }
 
     public String getUserId(String token) {
-        String info = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getId();
+        String info = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
         return info;
     }
 
