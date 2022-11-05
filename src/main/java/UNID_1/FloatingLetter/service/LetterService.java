@@ -17,8 +17,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class LetterService {
 
-    private LetterRepository letterRepository;
-    private BottleRepository bottleRepository;
+    private final LetterRepository letterRepository;
+    private final BottleRepository bottleRepository;
 
     public Letter save(Map<String, Object> request, User user){
         Bottle bottle = bottleRepository.findByid((Long) request.get("bottleid"));

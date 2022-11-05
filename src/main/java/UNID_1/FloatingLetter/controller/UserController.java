@@ -6,6 +6,7 @@ import UNID_1.FloatingLetter.service.UserService;
 import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +19,8 @@ import java.util.Map;
 @RequestMapping(value = "/user")
 public class UserController {
 
-    private UserService userService;
-    private JwtTokenProvider jwtTokenProvider;
+    private final UserService userService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Autowired
     public UserController(UserService userService, JwtTokenProvider jwtTokenProvider) {

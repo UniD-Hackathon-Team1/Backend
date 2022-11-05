@@ -21,7 +21,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping("/bottle")
 public class BottleController {
 
-    private static BottleService bottleService;
+    private final BottleService bottleService;
 
     @GetMapping("/random")
     public ResponseEntity<RandomResponse> getRandomBottle(@AuthenticationPrincipal User user) {

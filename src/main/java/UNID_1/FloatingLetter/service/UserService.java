@@ -12,11 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
 
-    private UserRepository userRepository;
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final UserRepository userRepository;
 
     public boolean isExistUser(String userId){
         User user = userRepository.findByUserId(userId);
