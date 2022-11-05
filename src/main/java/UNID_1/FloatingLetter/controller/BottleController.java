@@ -1,6 +1,7 @@
 package UNID_1.FloatingLetter.controller;
 
 import UNID_1.FloatingLetter.domain.User;
+import UNID_1.FloatingLetter.dto.response.BottleResponse;
 import UNID_1.FloatingLetter.dto.response.LetterResponse;
 import UNID_1.FloatingLetter.dto.response.RandomResponse;
 import UNID_1.FloatingLetter.service.BottleService;
@@ -31,7 +32,7 @@ public class BottleController {
     }
 
     @GetMapping("/{bottleId}")
-    public ResponseEntity<List<LetterResponse>> getBottleLetters(@PathVariable Long bottleId) {
+    public ResponseEntity<BottleResponse> getBottleLetters(@PathVariable Long bottleId) {
         return ResponseEntity
                 .status(OK)
                 .body(bottleService.getBottleLetters(bottleId));

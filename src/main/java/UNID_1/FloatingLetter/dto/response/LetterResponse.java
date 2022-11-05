@@ -4,20 +4,28 @@ import UNID_1.FloatingLetter.domain.Letter;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 @Getter
 @Builder
 public class LetterResponse {
     String text;
+    Map<String, Integer> time;
     int year;
     int month;
     int day;// 파싱 예정
 
     public static LetterResponse of(Letter letter) {
+        Map<String, Integer> parsedTime = new HashMap<>();
+        parsedTime.put("year", letter.getTime().getYear());
+        parsedTime.put("month", letter.getTime().getMonth().getValue());
+        parsedTime.put("day", letter.getTime().getDayOfMonth());
+
         return LetterResponse.builder()
                 .text(letter.getText())
-                .year(letter.getTime().getYear())
-                .month(letter.getTime().getMonth().getValue())
-                .day(letter.getTime().getDayOfMonth())
+                .time(parsedTime)
                 .build();
     }
 

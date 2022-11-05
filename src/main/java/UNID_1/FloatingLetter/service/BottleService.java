@@ -3,6 +3,7 @@ package UNID_1.FloatingLetter.service;
 import UNID_1.FloatingLetter.domain.Bottle;
 import UNID_1.FloatingLetter.domain.Letter;
 import UNID_1.FloatingLetter.domain.User;
+import UNID_1.FloatingLetter.dto.response.BottleResponse;
 import UNID_1.FloatingLetter.dto.response.LetterResponse;
 import UNID_1.FloatingLetter.dto.response.RandomResponse;
 import UNID_1.FloatingLetter.repository.BottleRepository;
@@ -51,11 +52,12 @@ public class BottleService {
     }
 
     @Transactional(readOnly = true)
-    public List<LetterResponse> getBottleLetters(Long bottleId) {
+    public BottleResponse getBottleLetters(Long bottleId) {
         Bottle bottle = bottleRepository.findById(bottleId)
                 .orElse(null);
         List<Letter> letterList = bottle.getLetterList();
-        return letterList.stream().map(LetterResponse::of).collect(Collectors.toList());
+
+        return new BottleResponse(bottleId, letterList.stream().map(LetterResponse::of).collect(Collectors.toList()));
     }
 
     @Transactional(readOnly = true)
