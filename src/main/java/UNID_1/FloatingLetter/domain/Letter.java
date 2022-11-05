@@ -3,6 +3,7 @@ package UNID_1.FloatingLetter.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -11,6 +12,7 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Letter {
@@ -31,5 +33,11 @@ public class Letter {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "bottleId")
     private Bottle bottle;
+
+    public Letter(String text, User user, Bottle bottle) {
+        this.text = text;
+        this.user = user;
+        this.bottle = bottle;
+    }
 
 }
