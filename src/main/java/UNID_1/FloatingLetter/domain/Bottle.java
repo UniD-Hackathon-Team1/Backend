@@ -1,15 +1,13 @@
 package UNID_1.FloatingLetter.domain;
 
-import com.fasterxml.jackson.databind.ser.std.TimeZoneSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,5 +21,8 @@ public class Bottle {
 
     private Timestamp time;
     private boolean closed;
+
+    @OneToMany(mappedBy = "bottle")
+    private List<Letter> letterList = new ArrayList<>();
 
 }
