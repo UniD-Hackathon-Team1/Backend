@@ -8,12 +8,16 @@ import lombok.Getter;
 @Builder
 public class LetterResponse {
     String text;
-    String time; // 파싱 예정
+    int year;
+    int month;
+    int day;// 파싱 예정
 
     public static LetterResponse of(Letter letter) {
         return LetterResponse.builder()
                 .text(letter.getText())
-                .time(letter.getText())
+                .year(letter.getTime().getYear())
+                .month(letter.getTime().getMonth().getValue())
+                .day(letter.getTime().getDayOfMonth())
                 .build();
     }
 

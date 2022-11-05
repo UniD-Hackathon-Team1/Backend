@@ -3,6 +3,8 @@ package UNID_1.FloatingLetter.service;
 import UNID_1.FloatingLetter.domain.Bottle;
 import UNID_1.FloatingLetter.domain.Letter;
 import UNID_1.FloatingLetter.domain.User;
+import UNID_1.FloatingLetter.dto.request.LetterRequest;
+import UNID_1.FloatingLetter.dto.response.LetterResponse;
 import UNID_1.FloatingLetter.repository.BottleRepository;
 import UNID_1.FloatingLetter.repository.LetterRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,8 +26,9 @@ public class LetterService {
     private final LetterRepository letterRepository;
     private final BottleRepository bottleRepository;
 
-    public Letter save(Map<String, Object> request, User user){
-        Bottle bottle = bottleRepository.findById(Long.parseLong((String)request.get("bottleid"))).orElse(null);
+
+    public LetterResponse save(LetterRequest request, User user){
+        Bottle bottle = bottleRepository.findById(request.getBottleId()).orElse(null);
         LocalDateTime now = LocalDateTime.now();
 
         if(bottle == null)
@@ -38,16 +42,17 @@ public class LetterService {
         bottleRepository.save(bottle);
         Letter letter = new Letter(
                 now,
-                (String) request.get("text"),
+                request.getText(),
                 user,
                 bottle
         );
 
-        return letterRepository.save(letter);
+        return LetterResponse.of(letterRepository.save(letter));
     }
 
-    public List<Letter> list(User user){
-        return letterRepository.findAllByUser(user);
+    public List<LetterResponse> list(User user){
+        List<Letter> letterList = letterRepository.findAllByUser(user);
+        return letterList.stream().map(LetterResponse::of).collect(Collectors.toList());
     }
 
 
