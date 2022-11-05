@@ -13,9 +13,6 @@ import java.util.Map;
 public class LetterResponse {
     String text;
     Map<String, Integer> time;
-    int year;
-    int month;
-    int day;// 파싱 예정
 
     public static LetterResponse of(Letter letter) {
         Map<String, Integer> parsedTime = new HashMap<>();
