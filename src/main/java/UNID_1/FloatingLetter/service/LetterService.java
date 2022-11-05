@@ -24,7 +24,7 @@ public class LetterService {
     private final BottleRepository bottleRepository;
 
     public Letter save(Map<String, Object> request, User user){
-        Bottle bottle = bottleRepository.findById(request.get("bottleid"));
+        Bottle bottle = bottleRepository.findById(request.get("bottleid")); // git test
         LocalDateTime now = LocalDateTime.now();
 
         if(bottle == null)
