@@ -30,7 +30,7 @@ public class LetterController {
     }
 
     @GetMapping(value = "/letter_list")
-    public List<Letter> letterList(@AuthenticationPrincipal User user){
+    public List<LetterResponse> letterList(@AuthenticationPrincipal User user){
         return letterService.list(user);
     }
 //

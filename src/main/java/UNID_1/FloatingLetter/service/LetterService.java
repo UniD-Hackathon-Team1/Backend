@@ -12,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,8 +27,9 @@ public class LetterService {
     private final BottleRepository bottleRepository;
 
     public LetterResponse save(LetterRequest request, User user){
-        Bottle bottle = bottleRepository.findByid(request.getBottleId());
-        Date now = new Date();
+        Bottle bottle = bottleRepository.findById(request.getBottleId()).orElse(null);
+        LocalDateTime now = LocalDateTime.now();
+
         if(bottle == null)
             bottle = new Bottle(now, false);
 
@@ -46,8 +49,9 @@ public class LetterService {
         return LetterResponse.of(letterRepository.save(letter));
     }
 
-    public List<Letter> list(User user){
-        return letterRepository.findAllByUser(user);
+    public List<LetterResponse> list(User user){
+        List<Letter> letterList = letterRepository.findAllByUser(user);
+        return letterList.stream().map(LetterResponse::of).collect(Collectors.toList());
     }
 
 

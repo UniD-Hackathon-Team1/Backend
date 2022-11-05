@@ -10,6 +10,4 @@ import java.util.List;
 
 public interface BottleRepository extends JpaRepository<Bottle, Long> {
     List<Bottle> findAllByClosed(boolean closed);
-    Bottle findByid(Long id);
-    Bottle save(Bottle bottle);
 }
