@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -21,7 +22,7 @@ public class Letter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Timestamp time;
+    private Date time;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String text;
@@ -34,10 +35,12 @@ public class Letter {
     @JoinColumn(name = "bottleId")
     private Bottle bottle;
 
-    public Letter(String text, User user, Bottle bottle) {
+    public Letter(Date time, String text, User user, Bottle bottle) {
+        this.time = time;
         this.text = text;
         this.user = user;
         this.bottle = bottle;
     }
+
 
 }

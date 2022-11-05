@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,15 +24,18 @@ public class LetterService {
 
     public Letter save(Map<String, Object> request, User user){
         Bottle bottle = bottleRepository.findByid((Long) request.get("bottleid"));
+        Date now = new Date();
         if(bottle == null)
-            bottle = new Bottle();
+            bottle = new Bottle(now, false);
 
         if(bottle.getLetterList().size() == 2){
             bottle.updateClosed();
         }
 
+
         bottleRepository.save(bottle);
         Letter letter = new Letter(
+                now,
                 (String) request.get("text"),
                 user,
                 bottle
