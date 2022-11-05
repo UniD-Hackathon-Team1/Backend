@@ -33,9 +33,5 @@ public class LetterController {
     public List<LetterResponse> letterList(@AuthenticationPrincipal User user){
         return letterService.list(user);
     }
-//
-//    @GetMapping(value = "/letter")
-//    public String letter(@RequestBody Map<String, Object> request){
-//    }
 
 }

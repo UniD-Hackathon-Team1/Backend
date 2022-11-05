@@ -6,9 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -23,7 +21,7 @@ public class Letter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime time;
+    private LocalDateTime time = LocalDateTime.now();
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String text;
@@ -36,8 +34,7 @@ public class Letter {
     @JoinColumn(name = "bottleId")
     private Bottle bottle;
 
-    public Letter(LocalDateTime time, String text, User user, Bottle bottle) {
-        this.time = time;
+    public Letter(String text, User user, Bottle bottle) {
         this.text = text;
         this.user = user;
         this.bottle = bottle;

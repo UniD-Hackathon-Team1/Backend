@@ -3,15 +3,8 @@ package UNID_1.FloatingLetter.controller;
 import UNID_1.FloatingLetter.config.JwtTokenProvider;
 import UNID_1.FloatingLetter.domain.User;
 import UNID_1.FloatingLetter.service.UserService;
-import io.jsonwebtoken.Header;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.Duration;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
