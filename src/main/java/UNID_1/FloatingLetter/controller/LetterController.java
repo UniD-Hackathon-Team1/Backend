@@ -2,6 +2,8 @@ package UNID_1.FloatingLetter.controller;
 
 import UNID_1.FloatingLetter.domain.Letter;
 import UNID_1.FloatingLetter.domain.User;
+import UNID_1.FloatingLetter.dto.request.LetterRequest;
+import UNID_1.FloatingLetter.dto.response.LetterResponse;
 import UNID_1.FloatingLetter.service.LetterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,12 +20,12 @@ public class LetterController {
     private final LetterService letterService;
 
     @PostMapping(value = "/write")
-    public Letter writeLetter(@AuthenticationPrincipal User user, @RequestBody Map<String, Object> request){
+    public LetterResponse writeLetter(@AuthenticationPrincipal User user, @RequestBody LetterRequest request){
         return letterService.save(request, user);
     }
 
     @PutMapping(value = "/continuing")
-    public Letter continueLetter(@AuthenticationPrincipal User user, @RequestBody Map<String, Object> request){
+    public LetterResponse continueLetter(@AuthenticationPrincipal User user, @RequestBody LetterRequest request){
         return letterService.save(request, user);
     }
 

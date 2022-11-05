@@ -3,6 +3,8 @@ package UNID_1.FloatingLetter.service;
 import UNID_1.FloatingLetter.domain.Bottle;
 import UNID_1.FloatingLetter.domain.Letter;
 import UNID_1.FloatingLetter.domain.User;
+import UNID_1.FloatingLetter.dto.request.LetterRequest;
+import UNID_1.FloatingLetter.dto.response.LetterResponse;
 import UNID_1.FloatingLetter.repository.BottleRepository;
 import UNID_1.FloatingLetter.repository.LetterRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +24,8 @@ public class LetterService {
     private final LetterRepository letterRepository;
     private final BottleRepository bottleRepository;
 
-    public Letter save(Map<String, Object> request, User user){
-        Bottle bottle = bottleRepository.findByid((Long) request.get("bottleid"));
+    public LetterResponse save(LetterRequest request, User user){
+        Bottle bottle = bottleRepository.findByid(request.getBottleId());
         Date now = new Date();
         if(bottle == null)
             bottle = new Bottle(now, false);
@@ -36,12 +38,12 @@ public class LetterService {
         bottleRepository.save(bottle);
         Letter letter = new Letter(
                 now,
-                (String) request.get("text"),
+                request.getText(),
                 user,
                 bottle
         );
 
-        return letterRepository.save(letter);
+        return LetterResponse.of(letterRepository.save(letter));
     }
 
     public List<Letter> list(User user){
