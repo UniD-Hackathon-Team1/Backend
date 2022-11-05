@@ -3,6 +3,7 @@ package UNID_1.FloatingLetter.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -24,5 +25,9 @@ public class Bottle {
 
     @OneToMany(mappedBy = "bottle")
     private List<Letter> letterList = new ArrayList<>();
+
+    public void updateClosed() {
+        this.closed = true;
+    }
 
 }

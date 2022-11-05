@@ -18,9 +18,18 @@ import java.util.Map;
 public class LetterService {
 
     private LetterRepository letterRepository;
+    private BottleRepository bottleRepository;
 
     public Letter save(Map<String, Object> request, User user){
-        Bottle bottle = new Bottle();
+        Bottle bottle = bottleRepository.findByid((Long) request.get("bottleid"));
+        if(bottle == null)
+            bottle = new Bottle();
+
+        if(bottle.getLetterList().size() == 2){
+            bottle.updateClosed();
+        }
+
+        bottleRepository.save(bottle);
         Letter letter = new Letter(
                 (String) request.get("text"),
                 user,
