@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,13 +19,13 @@ public class Bottle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Date time;
+    private LocalDateTime time;
     private boolean closed;
 
     @OneToMany(mappedBy = "bottle")
     private List<Letter> letterList = new ArrayList<>();
 
-    public Bottle(Date time, boolean closed) {
+    public Bottle(LocalDateTime time, boolean closed) {
         this.time = time;
         this.closed = closed;
     }

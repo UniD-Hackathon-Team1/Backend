@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,8 +24,9 @@ public class LetterService {
     private final BottleRepository bottleRepository;
 
     public Letter save(Map<String, Object> request, User user){
-        Bottle bottle = bottleRepository.findByid((Long) request.get("bottleid"));
-        Date now = new Date();
+        Bottle bottle = bottleRepository.findById(request.get("bottleid"));
+        LocalDateTime now = LocalDateTime.now();
+
         if(bottle == null)
             bottle = new Bottle(now, false);
 
